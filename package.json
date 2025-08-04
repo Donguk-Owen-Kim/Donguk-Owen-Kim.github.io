@@ -4,7 +4,6 @@
   "private": true,
   "homepage": "https://Donguk-Owen-Kim.github.io",
   "scripts": {
-    // "dev": "cross-env NODE_ENV=development next dev -H 0.0.0.0 -p 3000",
     "dev" : "next dev",
     "build": "next build",
     "lint": "next lint",
