@@ -32,14 +32,14 @@ export default function ContactSection() {
     {
       icon: 'ri-mail-line',
       title: 'Email',
-      content: 'hello@portfolio.com',
-      link: 'mailto:hello@portfolio.com'
+      content: 'kimdu0301@gmail.com',
+      link: 'mailto:kimdu0301@gmail.com'
     },
     {
       icon: 'ri-phone-line',
       title: 'Phone',
-      content: '+82 10-1234-5678',
-      link: 'tel:+821012345678'
+      content: '+82 10-2887-7193',
+      link: 'tel:+821028877193'
     },
     {
       icon: 'ri-map-pin-line',
@@ -50,11 +50,9 @@ export default function ContactSection() {
   ];
 
   const socialLinks = [
-    { icon: 'ri-linkedin-box-fill', link: '#', name: 'LinkedIn' },
-    { icon: 'ri-github-fill', link: '#', name: 'GitHub' },
-    { icon: 'ri-dribbble-fill', link: '#', name: 'Dribbble' },
-    { icon: 'ri-behance-fill', link: '#', name: 'Behance' },
-    { icon: 'ri-instagram-fill', link: '#', name: 'Instagram' }
+    { icon: 'ri-linkedin-box-fill', link: 'https://www.linkedin.com/in/dong-uk-kim-0aa289216/', name: 'LinkedIn' },
+    { icon: 'ri-github-fill', link: 'https://github.com/Donguk-Owen-Kim', name: 'GitHub' },
+    { icon: 'ri-instagram-fill', link: 'https://www.instagram.com/d.u._kim/', name: 'Instagram' }
   ];
 
   return (
@@ -65,13 +63,13 @@ export default function ContactSection() {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Contact</h2>
             <div className="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              새로운 프로젝트나 협업 기회에 대해 이야기해보세요
+              Let’s talk ideas, projects—or anything worth building together.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-16">
             <div>
-              <h3 className="text-2xl font-bold text-white mb-8">연락처 정보</h3>
+              <h3 className="text-2xl font-bold text-white mb-8">Information</h3>
               
               <div className="space-y-6 mb-12">
                 {contactInfo.map((info, index) => (
@@ -92,7 +90,7 @@ export default function ContactSection() {
               </div>
 
               <div>
-                <h4 className="text-lg font-bold text-white mb-6">소셜 미디어</h4>
+                <h4 className="text-lg font-bold text-white mb-6">Social Media</h4>
                 <div className="flex gap-4">
                   {socialLinks.map((social, index) => (
                     <a
@@ -109,11 +107,11 @@ export default function ContactSection() {
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold text-white mb-8">메시지 보내기</h3>
+              <h3 className="text-2xl font-bold text-white mb-8">Send to Message</h3>
               
               {isSubmitted && (
                 <div className="bg-green-600 text-white p-4 rounded-lg mb-6">
-                  메시지가 성공적으로 전송되었습니다. 빠른 시일 내에 답변드리겠습니다!
+                  Your message has landed safely. I’ll get back to you shortly—stay tuned!
                 </div>
               )}
 
@@ -123,7 +121,7 @@ export default function ContactSection() {
                     <input
                       type="text"
                       name="name"
-                      placeholder="이름"
+                      placeholder="name"
                       value={formData.name}
                       onChange={handleInputChange}
                       required
@@ -134,7 +132,7 @@ export default function ContactSection() {
                     <input
                       type="email"
                       name="email"
-                      placeholder="이메일"
+                      placeholder="e-mail"
                       value={formData.email}
                       onChange={handleInputChange}
                       required
@@ -147,7 +145,7 @@ export default function ContactSection() {
                   <input
                     type="text"
                     name="subject"
-                    placeholder="제목"
+                    placeholder="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
@@ -158,7 +156,7 @@ export default function ContactSection() {
                 <div>
                   <textarea
                     name="message"
-                    placeholder="메시지를 입력해주세요"
+                    placeholder="message"
                     value={formData.message}
                     onChange={handleInputChange}
                     required
@@ -173,7 +171,7 @@ export default function ContactSection() {
                   type="submit"
                   className="w-full bg-blue-600 text-white py-4 rounded-lg hover:bg-blue-700 transition-colors font-medium cursor-pointer whitespace-nowrap"
                 >
-                  메시지 보내기
+                  Send
                 </button>
               </form>
             </div>
