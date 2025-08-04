@@ -1,4 +1,12 @@
 import ProjectDetail from './ProjectDetail';
+import { type Metadata } from 'next';
+
+// ✅ 타입 인터페이스 명시
+interface Props {
+  params: {
+    id: string;
+  };
+}
 
 export async function generateStaticParams() {
   return [
@@ -10,6 +18,7 @@ export async function generateStaticParams() {
   ];
 }
 
-export default function ProjectPage({ params }: { params: { id: string } }) {
+// ✅ props 타입 명시적으로 지정
+export default function ProjectPage({ params }: Props) {
   return <ProjectDetail projectId={params.id} />;
 }
