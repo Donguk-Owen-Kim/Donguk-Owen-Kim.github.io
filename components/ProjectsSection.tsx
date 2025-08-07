@@ -21,7 +21,7 @@ export default function ProjectsSection() {
     {
       id: 2,
       title: "Rubik's WCA World Championship 2023",
-      category: "EVENT DESIGN",
+      category: "GLOBAL EVENT BRANDING & PRODUCTION",
       description: "Organized and designed one of the most prestigious global competitions in the world of cubing",
       image: "/images/id_4_preview.png",
       tags: ["Exhibition Design", "Event Planning", "Product Design"],

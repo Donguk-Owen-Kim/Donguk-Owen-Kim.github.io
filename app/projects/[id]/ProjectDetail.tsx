@@ -13,6 +13,23 @@ interface ProjectDetailProps {
   projectId: string;
 }
 
+const getProjectImage = (project: any) => {
+  // 1. 우선 image 필드 사용
+  if (project.image) return project.image;
+
+  // 2. videoUrls[0].thumbnail 존재 시
+  const firstVideo = project.videoUrls?.[0];
+  if (firstVideo?.thumbnail) return firstVideo.thumbnail;
+
+  // 3. videoUrls[0].url에서 YouTube ID 추출
+  const videoId = firstVideo?.url?.match(/(?:embed\/|\.be\/)([^\?&]+)/)?.[1];
+  if (videoId) return `https://img.youtube.com/vi/${videoId}/hq720.jpg`;
+
+  // fallback image
+  return '/images/placeholder.jpg'; // 없다면 회색 이미지 미리 준비해두기
+};
+
+
 export function VideoBlock({ url, title, thumbnail }: VideoBlockProps) {
   const [play, setPlay] = useState(false);
   const [thumbnailError, setThumbnailError] = useState(false);
@@ -23,6 +40,8 @@ export function VideoBlock({ url, title, thumbnail }: VideoBlockProps) {
     : `https://img.youtube.com/vi/${videoId}/hq720.jpg`;
 
   const finalThumbnail = thumbnail ?? fallbackThumbnail;
+
+  
 
     return (
     <div>
@@ -91,39 +110,43 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
       duration: "6 months",
       role: "Producer",
       challenges: [
-        "Creating a promotional showcase video that integrates a wide range of exhibition themes and works from various disciplines",
-        "Producing a memorable video that students can revisit and reflect on even after the exhibition ends",
-        "Managing limited budget and time efficiently across planning, shooting, and editing phases"
+        "Creating a promotional showcase video that integrates a wide range of exhibition themes and works from various disciplines.",
+        "Producing a memorable video that students can revisit and reflect on even after the exhibition ends.",
+        "Managing limited budget and time efficiently across planning, shooting, and editing phases."
       ],
       solutions: [
-        "Developed three distinct styles of videos (PR, documentary, vlog) to capture different aspects of the exhibition experience",
-        "Focused the documentary video on authentic interactions between professors and students to emphasize communication and collaboration",
-        "Filmed in key locations around campus to reduce production costs while visually capturing spaces filled with student memories"
+        "Developed three distinct styles of videos (PR, documentary, vlog) to capture different aspects of the exhibition experience.",
+        "Focused the documentary video on authentic interactions between professors and students to emphasize communication and collaboration.",
+        "Filmed in key locations around campus to reduce production costs while visually capturing spaces filled with student memories."
       ],
       results: [
-        "Achieved a total of over 6,000 views across all video formats (and still growing)",
-        "Helped enhance the image of the School of Art & Technology through algorithm-driven viewer engagement",
-        "Strengthened the sense of community among students and faculty by preserving shared moments and behind-the-scenes efforts in video form"
+        "Achieved a total of over 6,000 views across all video formats (and still growing).",
+        "Helped enhance the image of the School of Art & Technology through algorithm-driven viewer engagement.",
+        "Strengthened the sense of community among students and faculty by preserving shared moments and behind-the-scenes efforts in video form."
       ]
     },
     {
       id: 2,
       title: "Rubik's WCA World Championship 2023",
-      category: "EVENT DESIGN",
+      category: "GLOBAL EVENT BRANDING & PRODUCTION",
       description: "Organized and designed one of the most prestigious global competitions in the world of cubing",
-      fullDescription: "To capture the diversity and spirit of our graduation exhibition, we produced three distinct types of promotional videos: a PR film to highlight the concept and identity of the exhibition, a documentary to convey the behind-the-scenes stories and student experiences, and a vlog to deliver a personal, immersive perspective of the event day.\n\n I was responsible for producing, shooting, and editing the videos, as well as managing the production budget. From planning the narrative flow of each format to directing on-site filming and finalizing post-production, I played a key role in shaping how the exhibition was shared with the public.",
+      fullDescription: "The Rubik’s WCA World Championship 2023, the largest global Rubik’s Cube event, was held in Incheon, South Korea. Over 1,200 top speedcubers from 60 countries gathered to represent their nations and compete in an international celebration of skill and speed. \n\n As a board member of Korea Cube Culture United (KCCU)—the event’s hosting organization—I served as the lead designer for the organizing team. I directed the design team and oversaw the production of all key visual materials, including the opening ceremony video, on-site event experiences, official tournament branding, and exclusive merchandise design. My focus was on creating a visually engaging environment for both participants and visitors, enhancing the overall experience of the event.",
       videoUrls: [
         {title: "Opening Ceremony Video", url: "https://youtube.com/embed/tZozNRCVdFg?si=x1SqpPoN8coGHgkw"}
       ],
       images: [
-        "/images/AbouT/1.jpg",
-        "/images/AbouT/2.jpg",
-        "/images/AbouT/3.jpg",
-        "/images/AbouT/4.jpg",
-        "/images/AbouT/5.jpg",
-        "/images/AbouT/6.jpg",
-        "/images/AbouT/7.jpg",
-        "/images/AbouT/8.jpg"
+        "/images/WC/1.jpg",
+        "/images/WC/2.jpg",
+        "/images/WC/3.jpg",
+        "/images/WC/4.jpg",
+        "/images/WC/5.jpg",
+        "/images/WC/6.jpg",
+        "/images/WC/7.jpg",
+        "/images/WC/8.jpg",
+        "/images/WC/9.jpg",
+        "/images/WC/10.jpg",
+        "/images/WC/11.jpg",
+        "/images/WC/12.jpg"
       ],
       tags: ["Exhibition Design", "Event Planning", "Product Design"],
       year: "2023",
@@ -131,52 +154,54 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
       duration: "2 years",
       role: "Organizer, PR leader",
       challenges: [
-        "Creating a promotional showcase video that integrates a wide range of exhibition themes and works from various disciplines",
-        "Producing a memorable video that students can revisit and reflect on even after the exhibition ends",
-        "Managing limited budget and time efficiently across planning, shooting, and editing phases"
+        "The event required a universal design approach that could resonate across cultures while reflecting Korean identity.",
+        "We needed to forecast international demand for event merchandise and manage inventory planning efficiently.",
+        "Ensuring a consistent visual tone across all media, from promotional content to on-site signage, was a key challenge within limited resources."
       ],
       solutions: [
-        "Developed three distinct styles of videos (PR, documentary, vlog) to capture different aspects of the exhibition experience",
-        "Focused the documentary video on authentic interactions between professors and students to emphasize communication and collaboration",
-        "Filmed in key locations around campus to reduce production costs while visually capturing spaces filled with student memories"
+        "Designed a unified visual identity incorporating the national flag symbol and Obangsaek (five traditional Korean colors). Created a design guideline and distributed it to all team members to ensure consistency across outputs.",
+        "Curated a culturally rich opening ceremony featuring Korean traditional arts such as taekwondo and gugak (traditional music), presenting a powerful first impression to global participants.",
+        "Leveraged prior experience from international competitions to identify high-demand souvenir items, resulting in optimized stock management and merchandise selection tailored to foreign audiences."
       ],
       results: [
-        "Achieved a total of over 6,000 views across all video formats (and still growing)",
-        "Helped enhance the image of the School of Art & Technology through algorithm-driven viewer engagement",
-        "Strengthened the sense of community among students and faculty by preserving shared moments and behind-the-scenes efforts in video form"
+        "Achieved full registration of 1,000 participants in just 20 hours, followed by an additional 200-slot extension, closing the largest championship in WCA history within 24 hours.",
+        "The World Cube Association (WCA) praised the opening ceremony for its cultural richness, calling it one of the most memorable in WCA history. It later influenced a global trend of incorporating local cultural performances in major cube events.",
+        "Merchandise sales generated over 3,000% ROI, making it the first WCA World Championship to turn a profit, setting a new benchmark for future event planning."
       ]
     },
     {
       id: 3,
-      title: "E-커머스 웹사이트",
-      category: "Web Development",
-      description: "반응형 디자인과 직관적인 사용자 인터페이스로 온라인 매출을 250% 증가시킨 쇼핑몰 웹사이트",
-      fullDescription: "프리미엄 라이프스타일 브랜드의 온라인 쇼핑몰을 전면 리뉴얼한 프로젝트입니다. 고급스러운 브랜드 이미지와 편리한 쇼핑 경험을 동시에 제공하는 웹사이트를 구축했습니다.",
-      image: "https://readdy.ai/api/search-image?query=Modern%20e-commerce%20website%20design%2C%20product%20showcase%2C%20shopping%20cart%20interface%2C%20clean%20layout%2C%20responsive%20design%2C%20online%20store%2C%20product%20gallery%2C%20user-friendly%20navigation%2C%20commercial%20website&width=800&height=600&seq=project-3&orientation=landscape",
-      images: [
-        "https://readdy.ai/api/search-image?query=Luxury%20e-commerce%20homepage%20design%2C%20premium%20product%20showcase%2C%20elegant%20layout%2C%20high-end%20fashion%20website%2C%20sophisticated%20design%2C%20clean%20white%20background%2C%20professional%20photography&width=800&height=600&seq=project-3-home&orientation=landscape",
-        "https://readdy.ai/api/search-image?query=E-commerce%20product%20detail%20page%2C%20zoom%20functionality%2C%20product%20variations%2C%20add%20to%20cart%2C%20customer%20reviews%2C%20product%20gallery%2C%20professional%20e-commerce%20interface&width=800&height=600&seq=project-3-product&orientation=landscape",
-        "https://readdy.ai/api/search-image?query=Shopping%20cart%20checkout%20process%2C%20order%20summary%2C%20payment%20methods%2C%20shipping%20options%2C%20secure%20checkout%20design%2C%20user-friendly%20e-commerce%20flow&width=800&height=600&seq=project-3-checkout&orientation=landscape"
+      title: "Air Force Band Annual Concert",
+      category: "Event Design & Protocol Coordination",
+      description: "Supported event logistics and visual design for the Air Force Band Annual Concert in partnership with the Eighth U.S. Army Band",
+      fullDescription: "The Air Force Band Annual Concert, held in collaboration with the Eighth United States Army Band, was one of the Republic of Korea Air Force’s premier ceremonial events. High-ranking officials including the Chief of Staff and senior generals attended the concert, highlighting its national significance. \n\n As part of the planning and operations team, I was responsible for visual design production, supporting the event’s overall concept development and branding. On the day of the concert, I also handled protocol duties and interpreting support for foreign military attachés, ensuring smooth communication and hospitality.",
+      videoUrls: [
+        {title: "Broadcast Video", url: "https://youtube/embed/bLb2IdHi2DY?si=uJz0iEYC3QtbNKmP"}
       ],
-      tags: ["Web Design", "E-commerce", "Responsive"],
-      year: "2023",
-      client: "Luxe Living",
-      duration: "4개월",
-      role: "UI/UX Designer & Frontend Developer",
+      images: [
+        "/images/AF_Band/1.jpg",
+        "/images/AF_Band/2.jpg",
+        "/images/AF_Band/3.jpg",
+      ],
+      tags: ["Exhibition Design", "Event Planning", "Product Design"],
+      year: "2022",
+      client: "ROKAF Headquater Public Affairs",
+      duration: "6 months",
+      role: "Content Designer",
       challenges: [
-        "고급스러운 브랜드 이미지를 온라인에서 효과적으로 전달",
-        "복잡한 제품 카테고리와 옵션을 직관적으로 관리",
-        "모바일과 데스크톱에서 일관된 고품질 쇼핑 경험 제공"
+        "The design needed to represent the Air Force’s identity—symbolizing ascent, sunrise, and the color blue, which posed challenges in maintaining visual unity.",
+        "A shortage of available military interpreters made it difficult to provide individual assistance to foreign dignitaries.",
+        "Hosting the event in central Seoul presented logistical difficulties related to traffic and limited parking space."
       ],
       solutions: [
-        "고품질 이미지와 미니멀한 레이아웃으로 프리미엄 브랜드 이미지 구현",
-        "지능형 필터링과 검색 시스템으로 제품 탐색 경험 개선",
-        "반응형 디자인과 터치 친화적 인터페이스로 모든 디바이스 최적화"
+        "Used the image of the Black Eagles aerobatic team rising into the sky to symbolize the sunrise, while incorporating concert visuals below to evoke the Air Force’s blue identity.",
+        "Personally escorted foreign dignitaries and provided interpreting until they were handed off to assigned protocol officers.",
+        "Coordinated with local government and institutions to secure parking spaces and operated shuttle services to minimize attendee inconvenience."
       ],
       results: [
-        "온라인 매출 250% 증가",
-        "모바일 전환율 180% 향상",
-        "평균 세션 시간 3배 증가"
+        "Successfully delivered the first large-scale external Air Force event after COVID-19, with all tickets sold out within five minutes.",
+        "Received letters of appreciation from foreign military attachés expressing satisfaction with the performance and hospitality.",
+        "The concert served as a positive milestone in restoring public engagement with the military through culture and music."
       ]
     },
     {
@@ -345,7 +370,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-12 mb-16">
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Issues</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Issue</h3>
                 <ul className="space-y-4">
                   {project.challenges.map((challenge, index) => (
                     <li key={index} className="flex items-start gap-3">
@@ -435,7 +460,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
                   className="group block bg-gray-800 rounded-xl overflow-hidden hover:bg-gray-700 transition-colors cursor-pointer"
                 >
                   <img
-                    src={otherProject.image}
+                    src={getProjectImage(otherProject)}
                     alt={otherProject.title}
                     className="w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-300"
                   />
