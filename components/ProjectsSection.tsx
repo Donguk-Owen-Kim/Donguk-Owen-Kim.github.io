@@ -11,49 +11,40 @@ export default function ProjectsSection() {
   const projects = [
     {
       id: 1,
-      title: "모바일 뱅킹 앱 리디자인",
-      category: "UI/UX Design",
-      description: "사용자 경험을 개선하여 거래 완료율을 40% 향상시킨 모바일 뱅킹 앱 리디자인 프로젝트",
-      image: "https://readdy.ai/api/search-image?query=Modern%20mobile%20banking%20app%20interface%20design%2C%20clean%20UI%20elements%2C%20financial%20dashboard%2C%20transaction%20screens%2C%20blue%20and%20white%20color%20scheme%2C%20professional%20banking%20design%2C%20user-friendly%20interface%2C%20mobile%20app%20mockup&width=800&height=600&seq=project-1&orientation=landscape",
-      tags: ["Mobile Design", "Fintech", "User Research"],
+      title: "Art&Tech Grad Show: The Film Series",
+      category: "VIDEO EDITING",
+      description: "Three video styles for promoting the graduation exhibition: PR, documentary, and vlog",
+      image: "/images/id_1_preview.png",
+      tags: ["Shooting", "Editing", "Promotion Video", "Documentary Video"],
       year: "2024"
     },
     {
       id: 2,
-      title: "브랜드 아이덴티티 디자인",
-      category: "Brand Identity",
-      description: "스타트업 기업의 완전한 브랜드 아이덴티티를 구축하여 브랜드 인지도를 300% 증가시킨 프로젝트",
-      image: "https://readdy.ai/api/search-image?query=Brand%20identity%20design%20showcase%2C%20logo%20variations%2C%20business%20cards%2C%20letterhead%2C%20brand%20guidelines%2C%20color%20palette%2C%20typography%20system%2C%20corporate%20branding%20materials%2C%20professional%20presentation&width=800&height=600&seq=project-2&orientation=landscape",
-      tags: ["Branding", "Logo Design", "Visual Identity"],
-      year: "2024"
+      title: "Rubik's WCA World Championship 2023",
+      category: "EVENT DESIGN",
+      description: "Organized and designed one of the most prestigious global competitions in the world of cubing",
+      image: "/images/id_4_preview.png",
+      tags: ["Exhibition Design", "Event Planning", "Product Design"],
+      year: "2023"
     },
     {
       id: 3,
-      title: "E-커머스 웹사이트",
-      category: "Web Development",
-      description: "반응형 디자인과 직관적인 사용자 인터페이스로 온라인 매출을 250% 증가시킨 쇼핑몰 웹사이트",
-      image: "https://readdy.ai/api/search-image?query=Modern%20e-commerce%20website%20design%2C%20product%20showcase%2C%20shopping%20cart%20interface%2C%20clean%20layout%2C%20responsive%20design%2C%20online%20store%2C%20product%20gallery%2C%20user-friendly%20navigation%2C%20commercial%20website&width=800&height=600&seq=project-3&orientation=landscape",
-      tags: ["Web Design", "E-commerce", "Responsive"],
-      year: "2023"
+      title: "Air Force Band Annual Concert",
+      category: "EVENT DESIGN",
+      description: "Supported event logistics and visual design for the Air Force Band Annual Concert in partnership with the Eighth U.S. Army Band",
+      image: "/images/id_5_preview.png",
+      tags: ["Exhibition Design", "Event Planning", "Product Design"],
+      year: "2022"
     },
     {
       id: 4,
-      title: "레스토랑 모바일 앱",
-      category: "Mobile App",
-      description: "음식 주문과 테이블 예약을 통합한 레스토랑 전용 모바일 앱으로 고객 만족도 95% 달성",
-      image: "https://readdy.ai/api/search-image?query=Restaurant%20mobile%20app%20design%2C%20food%20ordering%20interface%2C%20menu%20display%2C%20table%20reservation%2C%20delivery%20tracking%2C%20food%20photography%2C%20warm%20colors%2C%20appetizing%20design%2C%20mobile%20app%20screens&width=800&height=600&seq=project-4&orientation=landscape",
-      tags: ["Mobile App", "Food & Beverage", "UX"],
-      year: "2023"
+      title: "8th Citizen Pilot Program",
+      category: "EVENT DESIGN",
+      description: "Planned and designed an Air Force experience program that allowed civilians to take part in a fighter jet pilot training simulation",
+      image: "/images/id_6_preview.png",
+      tags: ["Exhibition Design", "Event Planning", "Product Design"],
+      year: "2021"
     },
-    {
-      id: 5,
-      title: "기업 웹사이트 리뉴얼",
-      category: "Corporate Website",
-      description: "글로벌 IT 기업의 웹사이트를 리뉴얼하여 사용자 체류시간을 180% 증가시킨 프로젝트",
-      image: "https://readdy.ai/api/search-image?query=Corporate%20website%20design%2C%20professional%20business%20layout%2C%20company%20information%2C%20services%20showcase%2C%20modern%20corporate%20identity%2C%20clean%20interface%2C%20business%20presentation%2C%20professional%20web%20design&width=800&height=600&seq=project-5&orientation=landscape",
-      tags: ["Corporate", "Web Design", "UI/UX"],
-      year: "2023"
-    }
   ];
 
   useEffect(() => {
@@ -97,7 +88,7 @@ export default function ProjectsSection() {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Projects</h2>
           <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto px-6">
-            다양한 프로젝트를 통해 쌓아온 경험과 성과를 확인해보세요
+            Take a scroll through the projects that shaped the journey.
           </p>
         </div>
 
@@ -178,7 +169,7 @@ export default function ProjectsSection() {
                             href={`/projects/${project.id}`}
                             className="bg-blue-600 text-white px-10 py-4 rounded-full hover:bg-blue-700 transition-colors font-medium self-start cursor-pointer whitespace-nowrap shadow-lg text-lg"
                           >
-                            자세히 보기
+                            About
                           </Link>
                         </div>
                       </div>
@@ -207,7 +198,7 @@ export default function ProjectsSection() {
             ))}
           </div>
           <p className="text-center text-sm text-gray-500">
-            {currentProject + 1} / {projects.length} - 스크롤하여 다음 프로젝트 보기
+            {currentProject + 1} / {projects.length} - Scroll to next project
           </p>
         </div>
       </div>

@@ -1,77 +1,149 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
+
+interface VideoBlockProps {
+  url: string;
+  title: string;
+  thumbnail?: string;
+}
 
 interface ProjectDetailProps {
   projectId: string;
 }
 
+export function VideoBlock({ url, title, thumbnail }: VideoBlockProps) {
+  const [play, setPlay] = useState(false);
+  const [thumbnailError, setThumbnailError] = useState(false);
+  const videoId = url.match(/(?:embed\/|\.be\/)([^\?&]+)/)?.[1]; // .be 링크도 지원
+
+  const fallbackThumbnail = thumbnailError
+    ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+    : `https://img.youtube.com/vi/${videoId}/hq720.jpg`;
+
+  const finalThumbnail = thumbnail ?? fallbackThumbnail;
+
+    return (
+    <div>
+      <h4 className="text-xl font-semibold text-gray-800 mb-4">{title}</h4>
+      <div className="relative w-full aspect-video rounded-2xl shadow-2xl overflow-hidden">
+        {!play ? (
+          <div
+            onClick={() => setPlay(true)}
+            className="w-full h-full bg-black relative cursor-pointer"
+          >
+            <img
+              src={finalThumbnail}
+              onError={() => setThumbnailError(true)}
+              alt={`${title} 썸네일`}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="bg-white bg-opacity-70 rounded-full p-4">
+                <svg className="w-10 h-10 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <iframe
+            className="w-full h-full"
+            src={`${url}&autoplay=1`}
+            title={title}
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+          />
+        )}
+      </div>
+    </div>
+  );
+}
+
+
 export default function ProjectDetail({ projectId }: ProjectDetailProps) {
   const projects = [
     {
       id: 1,
-      title: "모바일 뱅킹 앱 리디자인",
-      category: "UI/UX Design",
-      description: "사용자 경험을 개선하여 거래 완료율을 40% 향상시킨 모바일 뱅킹 앱 리디자인 프로젝트",
-      fullDescription: "기존 모바일 뱅킹 앱의 복잡한 사용자 인터페이스와 낮은 사용성을 개선하기 위한 전면적인 리디자인 프로젝트입니다. 사용자 리서치를 통해 핵심 문제점들을 파악하고, 직관적이고 안전한 금융 서비스 경험을 제공하는 새로운 디자인을 개발했습니다.",
-      image: "https://readdy.ai/api/search-image?query=Modern%20mobile%20banking%20app%20interface%20design%2C%20clean%20UI%20elements%2C%20financial%20dashboard%2C%20transaction%20screens%2C%20blue%20and%20white%20color%20scheme%2C%20professional%20banking%20design%2C%20user-friendly%20interface%2C%20mobile%20app%20mockup&width=800&height=600&seq=project-1&orientation=landscape",
-      images: [
-        "https://readdy.ai/api/search-image?query=Mobile%20banking%20app%20login%20screen%20design%2C%20secure%20authentication%20interface%2C%20clean%20modern%20UI%2C%20fingerprint%20login%2C%20face%20recognition%2C%20blue%20accent%20colors%2C%20minimal%20design%2C%20professional%20banking%20app&width=600&height=800&seq=project-1-screen-1&orientation=portrait",
-        "https://readdy.ai/api/search-image?query=Mobile%20banking%20dashboard%20interface%2C%20account%20balance%20display%2C%20transaction%20history%2C%20quick%20actions%2C%20card%20management%2C%20modern%20UI%20design%2C%20financial%20app%20interface%2C%20clean%20layout&width=600&height=800&seq=project-1-screen-2&orientation=portrait",
-        "https://readdy.ai/api/search-image?query=Mobile%20banking%20transfer%20interface%2C%20send%20money%20screen%2C%20recipient%20selection%2C%20amount%20input%2C%20confirmation%20flow%2C%20secure%20transaction%20design%2C%20modern%20fintech%20UI&width=600&height=800&seq=project-1-screen-3&orientation=portrait"
+      title: "Art&Tech Grad Show: The Film Series",
+      category: "VIDEO EDITING",
+      description: "Three video styles for promoting the graduation exhibition: PR, documentary, and vlog",
+      fullDescription: "To capture the diversity and spirit of our graduation exhibition, we produced three distinct types of promotional videos: a PR film to highlight the concept and identity of the exhibition, a documentary to convey the behind-the-scenes stories and student experiences, and a vlog to deliver a personal, immersive perspective of the event day.\n\n I was responsible for producing, shooting, and editing the videos, as well as managing the production budget. From planning the narrative flow of each format to directing on-site filming and finalizing post-production, I played a key role in shaping how the exhibition was shared with the public.",
+      videoUrls: [
+        {title: "PR Video", url: "https://www.youtube.com/embed/eilzomDSK5w?si=aPzIanXHURkn7CTm"},
+        {title: "Documentary Video", url: "https://youtube.com/embed/uif5b0nd8QE?si=dbPUKwsfW63EMw9G"},
+        {title: "vlog", url: "https://youtube.com/embed/WiQXuEpg0CE?si=I_KJbh9iCE_ee5wA", thumbnail: "/images/AbouT/Thumbnail_vlog.jpg"}
       ],
-      tags: ["Mobile Design", "Fintech", "User Research"],
+      images: [
+        "/images/AbouT/1.jpg",
+        "/images/AbouT/2.jpg",
+        "/images/AbouT/3.jpg",
+        "/images/AbouT/4.jpg",
+        "/images/AbouT/5.jpg",
+        "/images/AbouT/6.jpg",
+        "/images/AbouT/7.jpg",
+        "/images/AbouT/8.jpg"
+      ],
+      tags: ["Editing", "Compositing", "Content Design", "Premiere pro", "After Effect", "Maya"],
       year: "2024",
-      client: "KB국민은행",
-      duration: "3개월",
-      role: "Lead UI/UX Designer",
+      client: "CAU College of Art & Tech",
+      duration: "6 months",
+      role: "Producer",
       challenges: [
-        "복잡한 금융 기능을 단순하고 직관적으로 표현",
-        "높은 보안 수준을 유지하면서도 편리한 사용자 경험 제공",
-        "다양한 연령층의 사용자 니즈를 모두 충족하는 인터페이스 설계"
+        "Creating a promotional showcase video that integrates a wide range of exhibition themes and works from various disciplines",
+        "Producing a memorable video that students can revisit and reflect on even after the exhibition ends",
+        "Managing limited budget and time efficiently across planning, shooting, and editing phases"
       ],
       solutions: [
-        "사용자 중심의 정보 아키텍처 재구성으로 핵심 기능 접근성 향상",
-        "생체 인증과 간편 결제 시스템을 통한 보안과 편의성 양립",
-        "직관적인 아이콘과 명확한 라벨링으로 사용성 개선"
+        "Developed three distinct styles of videos (PR, documentary, vlog) to capture different aspects of the exhibition experience",
+        "Focused the documentary video on authentic interactions between professors and students to emphasize communication and collaboration",
+        "Filmed in key locations around campus to reduce production costs while visually capturing spaces filled with student memories"
       ],
       results: [
-        "거래 완료율 40% 향상",
-        "앱 평점 4.2 → 4.8점 상승",
-        "고객 만족도 조사에서 85% 긍정 응답"
+        "Achieved a total of over 6,000 views across all video formats (and still growing)",
+        "Helped enhance the image of the School of Art & Technology through algorithm-driven viewer engagement",
+        "Strengthened the sense of community among students and faculty by preserving shared moments and behind-the-scenes efforts in video form"
       ]
     },
     {
       id: 2,
-      title: "브랜드 아이덴티티 디자인",
-      category: "Brand Identity",
-      description: "스타트업 기업의 완전한 브랜드 아이덴티티를 구축하여 브랜드 인지도를 300% 증가시킨 프로젝트",
-      fullDescription: "혁신적인 AI 스타트업의 브랜드 아이덴티티를 처음부터 구축한 프로젝트입니다. 기업의 비전과 가치를 시각적으로 표현하고, 일관된 브랜드 경험을 제공하기 위한 전체적인 브랜딩 시스템을 개발했습니다.",
-      image: "https://readdy.ai/api/search-image?query=Brand%20identity%20design%20showcase%2C%20logo%20variations%2C%20business%20cards%2C%20letterhead%2C%20brand%20guidelines%2C%20color%20palette%2C%20typography%20system%2C%20corporate%20branding%20materials%2C%20professional%20presentation&width=800&height=600&seq=project-2&orientation=landscape",
-      images: [
-        "https://readdy.ai/api/search-image?query=Modern%20minimalist%20logo%20design%20variations%2C%20geometric%20shapes%2C%20technology%20inspired%2C%20clean%20typography%2C%20brand%20symbol%2C%20corporate%20identity%2C%20professional%20logo%20showcase%2C%20grid%20system&width=800&height=600&seq=project-2-logo&orientation=landscape",
-        "https://readdy.ai/api/search-image?query=Brand%20color%20palette%20showcase%2C%20modern%20color%20combinations%2C%20professional%20brand%20colors%2C%20gradient%20systems%2C%20color%20harmony%2C%20brand%20guidelines%2C%20color%20swatches%2C%20design%20system&width=800&height=600&seq=project-2-colors&orientation=landscape",
-        "https://readdy.ai/api/search-image?query=Corporate%20stationery%20design%2C%20business%20cards%2C%20letterhead%2C%20envelope%20design%2C%20brand%20application%2C%20professional%20branding%20materials%2C%20consistent%20visual%20identity&width=800&height=600&seq=project-2-stationery&orientation=landscape"
+      title: "Rubik's WCA World Championship 2023",
+      category: "EVENT DESIGN",
+      description: "Organized and designed one of the most prestigious global competitions in the world of cubing",
+      fullDescription: "To capture the diversity and spirit of our graduation exhibition, we produced three distinct types of promotional videos: a PR film to highlight the concept and identity of the exhibition, a documentary to convey the behind-the-scenes stories and student experiences, and a vlog to deliver a personal, immersive perspective of the event day.\n\n I was responsible for producing, shooting, and editing the videos, as well as managing the production budget. From planning the narrative flow of each format to directing on-site filming and finalizing post-production, I played a key role in shaping how the exhibition was shared with the public.",
+      videoUrls: [
+        {title: "Opening Ceremony Video", url: "https://youtube.com/embed/tZozNRCVdFg?si=x1SqpPoN8coGHgkw"}
       ],
-      tags: ["Branding", "Logo Design", "Visual Identity"],
-      year: "2024",
-      client: "TechNova AI",
-      duration: "2개월",
-      role: "Brand Designer",
+      images: [
+        "/images/AbouT/1.jpg",
+        "/images/AbouT/2.jpg",
+        "/images/AbouT/3.jpg",
+        "/images/AbouT/4.jpg",
+        "/images/AbouT/5.jpg",
+        "/images/AbouT/6.jpg",
+        "/images/AbouT/7.jpg",
+        "/images/AbouT/8.jpg"
+      ],
+      tags: ["Exhibition Design", "Event Planning", "Product Design"],
+      year: "2023",
+      client: "Korea Cube Culture United",
+      duration: "2 years",
+      role: "Organizer, PR leader",
       challenges: [
-        "기술 중심의 복잡한 서비스를 대중이 이해할 수 있도록 시각화",
-        "경쟁사와 차별화되는 독특한 브랜드 포지셔닝 구축",
-        "스타트업의 성장 단계에 맞는 확장 가능한 브랜드 시스템 설계"
+        "Creating a promotional showcase video that integrates a wide range of exhibition themes and works from various disciplines",
+        "Producing a memorable video that students can revisit and reflect on even after the exhibition ends",
+        "Managing limited budget and time efficiently across planning, shooting, and editing phases"
       ],
       solutions: [
-        "AI와 혁신을 상징하는 기하학적 형태의 로고 개발",
-        "기술적 전문성과 접근성을 동시에 표현하는 색상 체계 구축",
-        "다양한 매체와 플랫폼에 적용 가능한 유연한 브랜드 가이드라인 제작"
+        "Developed three distinct styles of videos (PR, documentary, vlog) to capture different aspects of the exhibition experience",
+        "Focused the documentary video on authentic interactions between professors and students to emphasize communication and collaboration",
+        "Filmed in key locations around campus to reduce production costs while visually capturing spaces filled with student memories"
       ],
       results: [
-        "브랜드 인지도 300% 증가",
-        "투자 유치 시 브랜드 완성도로 높은 평가",
-        "브랜딩 어워드 3개 부문 수상"
+        "Achieved a total of over 6,000 views across all video formats (and still growing)",
+        "Helped enhance the image of the School of Art & Technology through algorithm-driven viewer engagement",
+        "Strengthened the sense of community among students and faculty by preserving shared moments and behind-the-scenes efforts in video form"
       ]
     },
     {
@@ -148,9 +220,9 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
       fullDescription: "글로벌 IT 컨설팅 기업의 웹사이트를 전면 리뉴얼한 프로젝트입니다. 복잡한 서비스 구조를 명확하게 정리하고, 전문성과 신뢰성을 강조하는 현대적인 웹사이트로 구축했습니다.",
       image: "https://readdy.ai/api/search-image?query=Corporate%20website%20design%2C%20professional%20business%20layout%2C%20company%20information%2C%20services%20showcase%2C%20modern%20corporate%20identity%2C%20clean%20interface%2C%20business%20presentation%2C%20professional%20web%20design&width=800&height=600&seq=project-5&orientation=landscape",
       images: [
-        "https://readdy.ai/api/search-image?query=Corporate%20website%20homepage%2C%20professional%20hero%20section%2C%20company%20values%2C%20services%20overview%2C%20modern%20business%20website%2C%20clean%20corporate%20design%2C%20executive%20team%20photos&width=800&height=600&seq=project-5-home&orientation=landscape",
-        "https://readdy.ai/api/search-image?query=IT%20services%20showcase%20page%2C%20technology%20solutions%2C%20consulting%20services%2C%20case%20studies%2C%20professional%20presentation%2C%20corporate%20website%20design%2C%20business%20services&width=800&height=600&seq=project-5-services&orientation=landscape",
-        "https://readdy.ai/api/search-image?query=Corporate%20about%20us%20page%2C%20company%20history%2C%20team%20members%2C%20office%20locations%2C%20professional%20corporate%20website%2C%20business%20presentation%2C%20company%20culture&width=800&height=600&seq=project-5-about&orientation=landscape"
+        {title: "PR Video", url: "https://readdy.ai/api/search-image?query=Corporate%20website%20homepage%2C%20professional%20hero%20section%2C%20company%20values%2C%20services%20overview%2C%20modern%20business%20website%2C%20clean%20corporate%20design%2C%20executive%20team%20photos&width=800&height=600&seq=project-5-home&orientation=landscape"},
+        {title: "Documentary Video", url: "https://readdy.ai/api/search-image?query=IT%20services%20showcase%20page%2C%20technology%20solutions%2C%20consulting%20services%2C%20case%20studies%2C%20professional%20presentation%2C%20corporate%20website%20design%2C%20business%20services&width=800&height=600&seq=project-5-services&orientation=landscape"},
+        {title: "vlog", url: "https://readdy.ai/api/search-image?query=Corporate%20about%20us%20page%2C%20company%20history%2C%20team%20members%2C%20office%20locations%2C%20professional%20corporate%20website%2C%20business%20presentation%2C%20company%20culture&width=800&height=600&seq=project-5-about&orientation=landscape"}
       ],
       tags: ["Corporate", "Web Design", "UI/UX"],
       year: "2023",
@@ -176,14 +248,16 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
   ];
 
   const project = projects.find(p => p.id === parseInt(projectId));
+  const [playVideo, setPlayVideo] = useState(false);
+  const videoId = project.videoUrl?.match(/embed\/([^?]+)/)?.[1];
 
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">프로젝트를 찾을 수 없습니다</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Can't find it</h1>
           <Link href="/" className="text-blue-600 hover:underline">
-            홈으로 돌아가기
+            Home
           </Link>
         </div>
       </div>
@@ -204,7 +278,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
               className="flex items-center gap-2 text-gray-600 hover:text-gray-900 cursor-pointer"
             >
               <i className="ri-arrow-left-line text-xl w-5 h-5 flex items-center justify-center"></i>
-              <span>홈으로 돌아가기</span>
+              <span>Home</span>
             </Link>
           </div>
         </div>
@@ -220,39 +294,50 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               {project.title}
             </h1>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed whitespace-pre-line">
               {project.fullDescription}
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
               <div className="flex items-center gap-2">
                 <i className="ri-user-line text-lg w-5 h-5 flex items-center justify-center"></i>
-                <span>클라이언트: {project.client}</span>
+                <span>Affiliation: {project.client}</span>
               </div>
               <div className="flex items-center gap-2">
                 <i className="ri-calendar-line text-lg w-5 h-5 flex items-center justify-center"></i>
-                <span>기간: {project.duration}</span>
+                <span>Duration: {project.duration}</span>
               </div>
               <div className="flex items-center gap-2">
                 <i className="ri-briefcase-line text-lg w-5 h-5 flex items-center justify-center"></i>
-                <span>역할: {project.role}</span>
+                <span>Role: {project.role}</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 메인 이미지 */}
-      <section className="py-16">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-96 md:h-[600px] object-cover object-top rounded-2xl shadow-2xl"
-            />
+      {/* 메인 영상 */}
+      {/* 프로젝트 영상 섹션 */}
+      {project.videoUrls && project.videoUrls.length > 0 && (
+        <section className="py-16">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto">
+              <h3 className="text-3xl font-bold text-gray-900 mb-12 text-center">Video Figure</h3>
+              <div className="space-y-12">
+                {project.videoUrls.map((video, index) => (
+                  <VideoBlock
+                    key={index}
+                    url={video.url}
+                    title={video.title}
+                    thumbnail={video.thumbnail}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+
 
       {/* 프로젝트 상세 정보 */}
       <section className="py-20 bg-white">
@@ -260,7 +345,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-12 mb-16">
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">도전 과제</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Issues</h3>
                 <ul className="space-y-4">
                   {project.challenges.map((challenge, index) => (
                     <li key={index} className="flex items-start gap-3">
@@ -272,7 +357,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">해결 방법</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Solution</h3>
                 <ul className="space-y-4">
                   {project.solutions.map((solution, index) => (
                     <li key={index} className="flex items-start gap-3">
@@ -284,7 +369,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">결과</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Result</h3>
                 <ul className="space-y-4">
                   {project.results.map((result, index) => (
                     <li key={index} className="flex items-start gap-3">
@@ -298,7 +383,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
 
             {/* 태그 */}
             <div className="mb-16">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">사용 기술 & 분야</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Skills</h3>
               <div className="flex flex-wrap gap-3">
                 {project.tags.map((tag, index) => (
                   <span
@@ -318,7 +403,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
       <section className="py-20">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h3 className="text-3xl font-bold text-gray-900 mb-12 text-center">프로젝트 세부 화면</h3>
+            <h3 className="text-3xl font-bold text-gray-900 mb-12 text-center">Details</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {project.images.map((image, index) => (
                 <div key={index} className="group">
@@ -338,7 +423,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
       <section className="py-20 bg-gray-900 text-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h3 className="text-3xl font-bold mb-8">다른 프로젝트도 확인해보세요</h3>
+            <h3 className="text-3xl font-bold mb-8">Other Projects</h3>
             <div className="grid md:grid-cols-2 gap-8">
               {projects
                 .filter(p => p.id !== project.id)
