@@ -91,8 +91,8 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
       fullDescription: "To capture the diversity and spirit of our graduation exhibition, we produced three distinct types of promotional videos: a PR film to highlight the concept and identity of the exhibition, a documentary to convey the behind-the-scenes stories and student experiences, and a vlog to deliver a personal, immersive perspective of the event day.\n\n I was responsible for producing, shooting, and editing the videos, as well as managing the production budget. From planning the narrative flow of each format to directing on-site filming and finalizing post-production, I played a key role in shaping how the exhibition was shared with the public.",
       videoUrls: [
         {title: "PR Video", url: "https://www.youtube.com/embed/eilzomDSK5w?si=aPzIanXHURkn7CTm"},
-        {title: "Documentary Video", url: "https://youtube.com/embed/uif5b0nd8QE?si=dbPUKwsfW63EMw9G"},
-        {title: "vlog", url: "https://youtube.com/embed/WiQXuEpg0CE?si=I_KJbh9iCE_ee5wA", thumbnail: "/images/AbouT/Thumbnail_vlog.jpg"}
+        {title: "Documentary Video(lan: Kor)", url: "https://youtube.com/embed/uif5b0nd8QE?si=dbPUKwsfW63EMw9G"},
+        {title: "vlog(lan: Kor)", url: "https://youtube.com/embed/WiQXuEpg0CE?si=I_KJbh9iCE_ee5wA", thumbnail: "/images/AbouT/Thumbnail_vlog.jpg"}
       ],
       images: [
         "/images/AbouT/1.jpg",
@@ -132,7 +132,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
       description: "Organized and designed one of the most prestigious global competitions in the world of cubing",
       fullDescription: "The Rubik’s WCA World Championship 2023, the largest global Rubik’s Cube event, was held in Incheon, South Korea. Over 1,200 top speedcubers from 60 countries gathered to represent their nations and compete in an international celebration of skill and speed. \n\n As a board member of Korea Cube Culture United (KCCU)—the event’s hosting organization—I served as the lead designer for the organizing team. I directed the design team and oversaw the production of all key visual materials, including the opening ceremony video, on-site event experiences, official tournament branding, and exclusive merchandise design. My focus was on creating a visually engaging environment for both participants and visitors, enhancing the overall experience of the event.",
       videoUrls: [
-        {title: "Opening Ceremony Video", url: "https://youtube.com/embed/tZozNRCVdFg?si=x1SqpPoN8coGHgkw"}
+        {title: "Opening Ceremony Video(lan: Eng, sub: Kor)", url: "https://youtube.com/embed/tZozNRCVdFg?si=x1SqpPoN8coGHgkw"}
       ],
       images: [
         "/images/WC/1.jpg",
@@ -176,7 +176,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
       description: "Supported event logistics and visual design for the Air Force Band Annual Concert in partnership with the Eighth U.S. Army Band",
       fullDescription: "The Air Force Band Annual Concert, held in collaboration with the Eighth United States Army Band, was one of the Republic of Korea Air Force’s premier ceremonial events. High-ranking officials including the Chief of Staff and senior generals attended the concert, highlighting its national significance. \n\n As part of the planning and operations team, I was responsible for visual design production, supporting the event’s overall concept development and branding. On the day of the concert, I also handled protocol duties and interpreting support for foreign military attachés, ensuring smooth communication and hospitality.",
       videoUrls: [
-        {title: "Broadcast Video", url: "https://youtube/embed/bLb2IdHi2DY?si=uJz0iEYC3QtbNKmP"}
+        {title: "Broadcast Video(Source: KFN, lan: Kor)", url: "https://youtube.com/embed/bLb2IdHi2DY?si=S2k3CqygJJANq3Hs"}
       ],
       images: [
         "/images/AF_Band/1.jpg",
@@ -206,35 +206,42 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
     },
     {
       id: 4,
-      title: "레스토랑 모바일 앱",
-      category: "Mobile App",
-      description: "음식 주문과 테이블 예약을 통합한 레스토랑 전용 모바일 앱으로 고객 만족도 95% 달성",
-      fullDescription: "프리미엄 레스토랑 체인의 디지털 혁신을 위한 모바일 앱 개발 프로젝트입니다. 온라인 주문, 테이블 예약, 멤버십 관리를 하나의 앱에 통합하여 고객 경험을 혁신했습니다.",
-      image: "https://readdy.ai/api/search-image?query=Restaurant%20mobile%20app%20design%2C%20food%20ordering%20interface%2C%20menu%20display%2C%20table%20reservation%2C%20delivery%20tracking%2C%20food%20photography%2C%20warm%20colors%2C%20appetizing%20design%2C%20mobile%20app%20screens&width=800&height=600&seq=project-4&orientation=landscape",
-      images: [
-        "https://readdy.ai/api/search-image?query=Restaurant%20app%20menu%20interface%2C%20food%20photography%2C%20dish%20descriptions%2C%20pricing%2C%20categories%2C%20appetizing%20food%20app%20design%2C%20modern%20UI%2C%20warm%20colors&width=600&height=800&seq=project-4-menu&orientation=portrait",
-        "https://readdy.ai/api/search-image?query=Table%20reservation%20interface%2C%20restaurant%20floor%20plan%2C%20time%20selection%2C%20party%20size%2C%20booking%20confirmation%2C%20restaurant%20app%20design%2C%20elegant%20interface&width=600&height=800&seq=project-4-reservation&orientation=portrait",
-        "https://readdy.ai/api/search-image?query=Food%20delivery%20tracking%20interface%2C%20order%20progress%2C%20delivery%20status%2C%20real-time%20tracking%2C%20restaurant%20app%2C%20order%20management%2C%20delivery%20app%20design&width=600&height=800&seq=project-4-tracking&orientation=portrait"
+      title: "8th National Pilot Contest in ADEX 2021",
+      category: "EVENT & EXPERIENCE DESIGN",
+      description: "Planned and designed an Air Force experience program that allowed civilians to take part in a fighter jet pilot training simulation",
+      fullDescription: "As part of ADEX 2021 (Seoul International Aerospace & Defense Exhibition), the 8th National Pilot Contest and the inaugural Honorary Pilot selection were held. A highlight of this year’s event was President Moon's dramatic arrival in an FA-50 fighter jet, drawing nationwide attention. \n\n In this project, I led overall exhibition design and product design, ensuring that all visual elements complemented the broader ADEX event atmosphere while showcasing the Air Force’s identity and vision for the future as a Space Force.",
+      videoUrls: [
+        {title: "Broadcast Video(Source: Arirang TV, lan:Eng)", url: "https://youtube.com/embed/yL1s-F-EmCc?si=Dh3X2Bulh6aAgDl_"},
+        {title: "ADEX Review(Source: ROKAF Youtube)", url: "https://youtube.com/embed/8e9Vfx2E75c?si=vVcHwkFjHn67A03V"}
       ],
-      tags: ["Mobile App", "Food & Beverage", "UX"],
-      year: "2023",
-      client: "Bistro Chain",
-      duration: "5개월",
-      role: "Product Designer",
+      images: [
+        "/images/ADEX/4.jpg",
+        "/images/ADEX/3.jpg",
+        "/images/ADEX/6.jpg",
+        "/images/ADEX/2.jpg",
+        "/images/ADEX/5.jpg",
+        "/images/ADEX/1.jpg"
+      ],
+      tags: ["Exhibition Design", "Event Planning", "Product Design"],
+      year: "2022",
+      client: "ROKAF Headquater Public Affairs",
+      duration: "6 months",
+      role: "Content Designer",
       challenges: [
-        "복잡한 메뉴 구조와 커스터마이징 옵션을 직관적으로 표현",
-        "실시간 테이블 예약과 대기열 관리 시스템 구축",
-        "음식의 시각적 매력을 극대화하는 인터페이스 설계"
+        "The design needed to reflect the Air Force’s identity while also expressing its vision of advancing into the Space Force era.",
+        "As this was a large-scale, high-profile project involving the President, it was critical to simplify the civilian application process for broader participation.",
+        "All designs had to integrate seamlessly with the overall aesthetic and scale of the ADEX 2021 exhibition."
       ],
       solutions: [
-        "카테고리별 메뉴 구성과 시각적 필터링으로 탐색성 개선",
-        "실시간 좌석 현황과 예상 대기시간 표시로 투명한 예약 시스템 구현",
-        "고품질 음식 사진과 따뜻한 색상 팔레트로 식욕을 자극하는 디자인"
+        "Developed a visual concept featuring fighter jets ascending toward space, with a darker color palette to convey depth and futuristic ambition.",
+        "Achieved a final competition rate of 535:1, marking one of the most competitive selections in the event’s history.",
+        "Designed key on-site structures, including the presentation stage used during ADEX, ensuring they matched the event’s overall branding and visual tone."
       ],
       results: [
-        "고객 만족도 95% 달성",
-        "앱 주문량 전체 매출의 60% 차지",
-        "평균 주문 금액 35% 증가"
+        "Successfully executed a nationally recognized Air Force event within the prestigious ADEX framework, attracting significant public and media attention.",
+        "Received letters of appreciation from foreign military attachés expressing satisfaction with the performance and hospitality.",
+        "The visually cohesive design reinforced the Air Force’s image and its transition toward a Space Force vision.",
+        "The streamlined application system improved civilian participation accessibility, significantly enhancing engagement and operational efficiency."
       ]
     },
     {

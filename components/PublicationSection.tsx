@@ -11,9 +11,9 @@ export default function PublicationSection() {
       id: 1,
       title: "Design Guidelines for Pediatric Care Assistive Content to Alleviate Psychological Anxiety in Young Patients",
       journal: "Journal of the HCI Society of Korea",
-      description: <><em>This paper is written in Korean.</em><br /> It presents design guidelines for assistive content to reduce psychological anxiety in pediatric patients by applying digital and physical distraction strategies tailored to each stage of medical treatment, based on expert interviews and case analyses.</>,
+      description: <><br /> <strong>Dong-Uk Kim</strong>, Yejin Jang, Hye-Young Jo, Yoonji Kim <em>This paper is written in Korean.</em></>,
       image: "/images/KinderKinetics.png",
-      tags: ["Content Design Guideline", "Assistive technology", "Digital Healthcare"],
+      tags: ["Content Design Guideline", "Assistive technology", "Healthcare"],
       year: "2025",
       type: "Research Paper",
       doiLink: "https://doi.org/10.17210/jhsk.2025.06.20.2.43",
@@ -23,7 +23,7 @@ export default function PublicationSection() {
       id: 2,
       title: "TrainerTap: Weightlifting Support System Prototype Simulating Personal Trainer's Tactile and Auditory Guidance",
       journal: "UIST'23 Adjunct",
-      description: "Working out alone at the gym often lacks the quality and intensity of exercises compared to the training session with a personal trainer. To narrow this gap, we introduce TrainerTap, which simulates the personal trainer’s presence during solitary weightlifting workouts. TrainerTap replicates the trainer’s manual interventions of tapping the trainee’s body parts to capture their attention on target muscles and provides auditory guidance to support executing the movements at a consistent tempo.",
+      description: <><br /> Hye-Young Jo, Chan Hu Wie, Yejin Jang, <strong>Dong-Uk Kim</strong>, Yurim Son, Yoonji Kim</>,
       image: "/images/trainertap.png",
       tags: ["Healthcare", "Haptic", "Mobile Approach"],
       year: "2023",
@@ -113,11 +113,11 @@ export default function PublicationSection() {
               <div key={publication.id} className="flex-shrink-0 w-full snap-start">
                 <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden border border-gray-100">
                   <div className="grid lg:grid-cols-2 gap-0">
-                    <div className="relative h-96 w-full overflow-hidde">
+                    <div className="relative w-full aspect-video md:h-96 md:aspect-auto overflow-hidden">
                       <img
                         src={publication.image}
                         alt={publication.title}
-                        className="w-full object-cover"
+                        className="h-full object-cover aspect-video"
                       />
                       <div className="absolute top-4 left-4 flex gap-2">
                         <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
@@ -134,7 +134,7 @@ export default function PublicationSection() {
                           {publication.journal}
                         </span>
                       </div>
-                      <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                      <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-4 leading-tight">
                         {publication.title}
                       </h3>
                       <p className="text-gray-600 mb-6 leading-relaxed">
