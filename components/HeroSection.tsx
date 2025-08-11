@@ -9,7 +9,7 @@ export default function HeroSection() {
   const downloadCV = () => {
     // CV 다운로드 기능 시뮬레이션
     const link = document.createElement('a');
-    link.href = 'https://drive.google.com/file/d/1fOpzsW7DzGq2xPbi1cwYVvaKs28BfzCz/view?usp=sharing'; // 실제 CV 파일 경로로 변경 필요
+    link.href = 'https://drive.google.com/file/d/1EkM9DKMqxoGxNm3MAfbrLptQr7cLa0Wy/view?usp=sharing'; // 실제 CV 파일 경로로 변경 필요
     // link.download = 'CV_202507.pdf';
     link.click();
   };

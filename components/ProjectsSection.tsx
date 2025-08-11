@@ -52,7 +52,7 @@ export default function ProjectsSection() {
       image: '/images/id_6_preview.png',
       tags: ['Exhibition Design', 'Event Planning', 'Product Design'],
       year: '2021',
-    },
+    }
   ];
 
   // 섹션 전체 높이 = N*vh - (N-1)*(헤더+푸터)  → 마지막 빈 여백 제거
@@ -61,7 +61,12 @@ export default function ProjectsSection() {
     const vh = window.innerHeight;
     const headerH = headerRef.current?.offsetHeight ?? 0;
     const footerH = footerRef.current?.offsetHeight ?? 0;
-    const H = N * vh - (N - 1) * (headerH + footerH);
+
+    const cardH = Math.max(
+      document.querySelector<HTMLElement>(".project-card")?.offsetHeight || 0,
+      560
+    )
+    const H = (N) * vh + (headerH + footerH + cardH);
     setContainerHeight(Math.max(1, Math.round(H)));
   };
 
