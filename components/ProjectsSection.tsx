@@ -88,7 +88,7 @@ export default function ProjectsSection() {
           {/* 카드 영역 */}
           <div className="flex-1 relative overflow-hidden bg-gray-50">
             <div className="absolute inset-0 flex items-center justify-center px-6">
-              <div className="w-full max-w-7xl mx-auto relative lg:h-[75vh]">
+              <div className="w-full max-w-7xl mx-auto relative lg:h-[60vh]">
                 {projects.map((p, i) => {
                   let translateX = 0, opacity = 0, scale = 0.95;
                   if (i === currentProject) {
@@ -105,7 +105,7 @@ export default function ProjectsSection() {
                       <div className="bg-white rounded-3xl shadow-2xl overflow-hidden h-full">
                         <div className="grid lg:grid-cols-2 h-full">
                           <div className="relative">
-                            <img src={p.image} alt={p.title} className="w-full h-full object-cover object-top" />
+                            <img src={p.image} alt={p.title} className="w-full h-full object-cover xl:bg-black/5" />
                             <div className="absolute top-8 left-8">
                               <span className="bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-bold shadow-xl">{p.year}</span>
                             </div>
@@ -117,7 +117,7 @@ export default function ProjectsSection() {
                             <div className="flex flex-wrap gap-3 mb-8">
                               {p.tags.map((t, ti)=>(<span key={ti} className="bg-blue-50 text-blue-700 px-5 py-2 rounded-full text-sm border border-blue-200">{t}</span>))}
                             </div>
-                            <Link href={`/projects/${p.id}`} className="bg-blue-600 text-white px-10 py-4 rounded-full shadow-lg hover:bg-blue-700">
+                            <Link href={`/projects/${p.id}`} className="inline-block bg-blue-600 text-white px-10 py-4 rounded-full shadow-lg hover:bg-blue-700 w-fit">
                               About
                             </Link>
                           </div>
@@ -170,7 +170,7 @@ export default function ProjectsSection() {
                     <div className="flex flex-wrap gap-2 mb-6">
                       {p.tags.map((t,ti)=>(<span key={ti} className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs border">{t}</span>))}
                     </div>
-                    <Link href={`/projects/${p.id}`} className="inline-block bg-blue-600 text-white px-6 py-3 rounded-full shadow hover:bg-blue-700">
+                    <Link href={`/projects/${p.id}`} className="inline-block bg-blue-600 text-white px-6 py-3 rounded-full shadow hover:bg-blue-700 min-w-[120px] text-center">
                       About
                     </Link>
                   </div>

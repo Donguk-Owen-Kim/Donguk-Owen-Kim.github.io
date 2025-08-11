@@ -12,7 +12,7 @@ export default function PublicationSection() {
       title: "Design Guidelines for Pediatric Care Assistive Content to Alleviate Psychological Anxiety in Young Patients",
       journal: "Journal of the HCI Society of Korea",
       description: <><br /> <strong>Dong-Uk Kim</strong>, Yejin Jang, Hye-Young Jo, Yoonji Kim <em>This paper is written in Korean.</em></>,
-      image: "/images/KinderKinetics.png",
+      image: "/images/HCIK.png",
       tags: ["Content Design Guideline", "Assistive technology", "Healthcare"],
       year: "2025",
       type: "Research Paper",
@@ -113,11 +113,11 @@ export default function PublicationSection() {
               <div key={publication.id} className="flex-shrink-0 w-full snap-start">
                 <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden border border-gray-100">
                   <div className="grid lg:grid-cols-2 gap-0">
-                    <div className="relative w-full aspect-video md:h-96 md:aspect-auto overflow-hidden">
+                    <div className="relative w-full overflow-hidden aspect-[4/3] md:aspect-[16/10] lg:aspect-auto lg:min-h-[380px] xl:min-h-[440px] 2xl:min-h-[500px] flex items-center justify-center bg-white">
                       <img
                         src={publication.image}
                         alt={publication.title}
-                        className="h-full object-cover aspect-video"
+                        className="w-full h-full object-contain"
                       />
                       <div className="absolute top-4 left-4 flex gap-2">
                         <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
