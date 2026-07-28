@@ -1,7 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {fetchPublished} from '../../../sanity/lib/client';
+import {projectsQuery} from '../../../sanity/lib/queries';
 
 interface VideoBlockProps {
   url: string;
@@ -82,7 +84,7 @@ export function VideoBlock({ url, title, thumbnail }: VideoBlockProps) {
 
 
 export default function ProjectDetail({ projectId }: ProjectDetailProps) {
-  const projects = [
+  const fallbackProjects = [
     {
       id: 1,
       title: "Art&Tech Grad Show: The Film Series",
@@ -279,6 +281,29 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
     }
   ];
 
+  const [projects, setProjects] = useState<any[]>(fallbackProjects);
+
+  useEffect(() => {
+    fetchPublished<any[]>(projectsQuery).then((items) => {
+      if (items?.length) {
+        const managedIds = new Set(items.map((item) => item.id));
+        const merged = items.map((item) => ({
+          ...fallbackProjects.find((project) => project.id === item.id),
+          ...item,
+          images: item.images?.length
+            ? item.images
+            : fallbackProjects.find((project) => project.id === item.id)?.images ?? [],
+          videoUrls: item.videoUrls?.length
+            ? item.videoUrls
+            : fallbackProjects.find((project) => project.id === item.id)?.videoUrls ?? [],
+        }));
+        setProjects([...merged, ...fallbackProjects.filter((item) => !managedIds.has(item.id))]);
+      }
+    });
+    // The local list intentionally remains a stable fallback for gradual CMS migration.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const project = projects.find(p => p.id === parseInt(projectId));
 
   if (!project) {
@@ -338,7 +363,15 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
               </div>
               <div className="py-5 sm:px-6">
                 <p className="mb-2 text-xs uppercase tracking-[0.14em] text-gray-400">Related Articles</p>
-                <p className="text-base text-gray-400">—</p>
+                {project.relatedArticles?.length ? (
+                  <div className="space-y-1">
+                    {project.relatedArticles.map((article: {title: string; url: string}) => (
+                      <a key={article.url} href={article.url} target="_blank" rel="noreferrer" className="block text-base underline">
+                        {article.title}
+                      </a>
+                    ))}
+                  </div>
+                ) : <p className="text-base text-gray-400">—</p>}
               </div>
             </div>
           </div>
@@ -353,7 +386,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
             <div className="max-w-4xl mx-auto">
               <h3 className="text-3xl font-bold text-gray-900 mb-12 text-center">Video Figure</h3>
               <div className="space-y-12">
-                {project.videoUrls.map((video, index) => (
+                {project.videoUrls.map((video: VideoBlockProps, index: number) => (
                   <VideoBlock
                     key={index}
                     url={video.url}
@@ -372,7 +405,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
           <div className="max-w-6xl mx-auto">
             <h3 className="text-3xl font-bold text-gray-900 mb-12 text-center">Details</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {project.images.map((image, index) => (
+              {(project.images ?? []).map((image: string | {url: string}, index: number) => (
                 <div key={index} className="group">
                   <img
                     src={typeof image === 'string' ? image : image.url}
