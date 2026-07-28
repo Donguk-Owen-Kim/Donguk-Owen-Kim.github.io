@@ -280,8 +280,6 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
   ];
 
   const project = projects.find(p => p.id === parseInt(projectId));
-  const [playVideo, setPlayVideo] = useState(false);
-  const videoId = project.videoUrl?.match(/embed\/([^?]+)/)?.[1];
 
   if (!project) {
     return (
@@ -329,18 +327,18 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
             <p className="text-xl text-gray-600 mb-8 leading-relaxed whitespace-pre-line">
               {project.fullDescription}
             </p>
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-              <div className="flex items-center gap-2">
-                <i className="ri-user-line text-lg w-5 h-5 flex items-center justify-center"></i>
-                <span>Affiliation: {project.client}</span>
+            <div className="mt-14 grid border-y border-gray-200 text-left sm:grid-cols-3">
+              <div className="border-b border-gray-200 py-5 sm:border-b-0 sm:border-r sm:px-6">
+                <p className="mb-2 text-xs uppercase tracking-[0.14em] text-gray-400">Date</p>
+                <p className="text-base text-gray-900">{project.year}</p>
               </div>
-              <div className="flex items-center gap-2">
-                <i className="ri-calendar-line text-lg w-5 h-5 flex items-center justify-center"></i>
-                <span>Duration: {project.duration}</span>
+              <div className="border-b border-gray-200 py-5 sm:border-b-0 sm:border-r sm:px-6">
+                <p className="mb-2 text-xs uppercase tracking-[0.14em] text-gray-400">Role</p>
+                <p className="text-base text-gray-900">{project.role}</p>
               </div>
-              <div className="flex items-center gap-2">
-                <i className="ri-briefcase-line text-lg w-5 h-5 flex items-center justify-center"></i>
-                <span>Role: {project.role}</span>
+              <div className="py-5 sm:px-6">
+                <p className="mb-2 text-xs uppercase tracking-[0.14em] text-gray-400">Related Articles</p>
+                <p className="text-base text-gray-400">—</p>
               </div>
             </div>
           </div>
@@ -368,69 +366,6 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
           </div>
         </section>
       )}
-
-
-
-      {/* 프로젝트 상세 정보 */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-12 mb-16">
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Issue</h3>
-                <ul className="space-y-4">
-                  {project.challenges.map((challenge, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <i className="ri-error-warning-line text-red-500 text-lg mt-1 w-5 h-5 flex items-center justify-center"></i>
-                      <span className="text-gray-600 leading-relaxed">{challenge}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Solution</h3>
-                <ul className="space-y-4">
-                  {project.solutions.map((solution, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <i className="ri-lightbulb-line text-yellow-500 text-lg mt-1 w-5 h-5 flex items-center justify-center"></i>
-                      <span className="text-gray-600 leading-relaxed">{solution}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Result</h3>
-                <ul className="space-y-4">
-                  {project.results.map((result, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <i className="ri-check-line text-green-500 text-lg mt-1 w-5 h-5 flex items-center justify-center"></i>
-                      <span className="text-gray-600 leading-relaxed">{result}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* 태그 */}
-            <div className="mb-16">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Skills</h3>
-              <div className="flex flex-wrap gap-3">
-                {project.tags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="bg-blue-50 text-blue-700 px-6 py-3 rounded-full text-sm font-medium border border-blue-200"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* 추가 이미지 갤러리 */}
       <section className="py-20">
         <div className="container mx-auto px-6">
@@ -440,7 +375,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
               {project.images.map((image, index) => (
                 <div key={index} className="group">
                   <img
-                    src={image}
+                    src={typeof image === 'string' ? image : image.url}
                     alt={`${project.title} 상세 ${index + 1}`}
                     className="w-full h-80 object-cover object-top rounded-xl shadow-lg group-hover:shadow-2xl transition-shadow duration-300"
                   />
