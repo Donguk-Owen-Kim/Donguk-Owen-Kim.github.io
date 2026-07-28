@@ -1,12 +1,37 @@
 'use client';
 
 import {useEffect, useState} from 'react';
+import {PortableText, type PortableTextBlock, type PortableTextComponents} from '@portabletext/react';
 import {fetchPublished} from '../sanity/lib/client';
 import {siteSettingsQuery} from '../sanity/lib/queries';
 
 type SiteSettings = {
   landingDescription?: string;
+  landingContent?: PortableTextBlock[];
   cvUrl?: string;
+};
+
+const landingComponents: PortableTextComponents = {
+  block: {
+    normal: ({children}) => <p>{children}</p>,
+  },
+  marks: {
+    strong: ({children}) => <strong>{children}</strong>,
+    em: ({children}) => <em>{children}</em>,
+    link: ({children, value}) => (
+      <a
+        href={value?.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-semibold underline underline-offset-2"
+      >
+        {children}
+      </a>
+    ),
+    textColor: ({children, value}) => (
+      <span style={{color: value?.color}}>{children}</span>
+    ),
+  },
 };
 
 export default function HeroSection() {
@@ -46,7 +71,11 @@ export default function HeroSection() {
 
         <div className="grid gap-8 border-t border-black/15 pt-8 md:grid-cols-[1fr_auto] md:items-end">
           <div className="max-w-4xl">
-            {siteSettings?.landingDescription ? (
+            {siteSettings?.landingContent?.length ? (
+              <div className="space-y-1 text-base leading-7 text-black/65 md:text-lg">
+                <PortableText value={siteSettings.landingContent} components={landingComponents} />
+              </div>
+            ) : siteSettings?.landingDescription ? (
               <p className="whitespace-pre-line text-base leading-7 text-black/65 md:text-lg">
                 {siteSettings.landingDescription}
               </p>
