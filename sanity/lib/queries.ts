@@ -23,5 +23,6 @@ export const blogPostQuery = `*[_type == "blogPost" && slug.current == $slug][0]
 
 export const siteSettingsQuery = `*[_type == "siteSettings" && _id == "siteSettings"][0] {
   landingDescription,
-  "cvUrl": cvFile.asset->url
+  landingContent,
+  "cvUrl": coalesce(cvFile.asset->url, cvUrl)
 }`;
