@@ -1,54 +1,30 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // 헤더 투명도 설정
-      setIsScrolled(currentScrollY > 50);
-
-      // 아래로 스크롤 중이면 숨기고, 위로 스크롤 중이면 보이게
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  const [isOpen, setIsOpen] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
+    setIsOpen(false);
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 transform ${
-      isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
-    } ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
-      <nav className="container mx-auto px-6 py-4">
+    <header className="fixed inset-x-0 top-0 z-50">
+      <nav className="site-shell mt-3 rounded-full border border-black/10 bg-[#f4f3ef]/85 px-5 py-3 backdrop-blur-xl md:mt-5 md:px-7">
         <div className="flex items-center justify-between">
-          <div className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'Pacifico, serif' }}>
-            Dong-Uk
-          </div>
+          <button onClick={() => scrollToSection('home')} className="text-sm font-semibold tracking-[-0.02em]">
+            Dong-Uk Kim <span className="text-[#ff5c35]">●</span>
+          </button>
 
-          <ul className="hidden md:flex space-x-8">
+          <ul className="hidden items-center gap-1 md:flex">
             {['home', 'publications', 'projects', 'contact'].map((section) => (
               <li key={section}>
                 <button
                   onClick={() => scrollToSection(section)}
-                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                  className="rounded-full px-4 py-2 text-sm text-black/60 transition hover:bg-black hover:text-white"
                 >
                   {section.charAt(0).toUpperCase() + section.slice(1)}
                 </button>
@@ -56,10 +32,24 @@ export default function Header() {
             ))}
           </ul>
 
-          <button className="md:hidden text-gray-700 cursor-pointer">
-            <i className="ri-menu-line text-2xl"></i>
+          <button
+            className="h-9 w-9 rounded-full border border-black/15 md:hidden"
+            onClick={() => setIsOpen((value) => !value)}
+            aria-label="Toggle navigation"
+            aria-expanded={isOpen}
+          >
+            <i className={isOpen ? 'ri-close-line' : 'ri-menu-line'}></i>
           </button>
         </div>
+        {isOpen && (
+          <div className="grid gap-1 border-t border-black/10 pt-3 md:hidden">
+            {['home', 'publications', 'projects', 'contact'].map((section) => (
+              <button key={section} onClick={() => scrollToSection(section)} className="rounded-xl px-3 py-3 text-left text-sm hover:bg-black/5">
+                {section.charAt(0).toUpperCase() + section.slice(1)}
+              </button>
+            ))}
+          </div>
+        )}
       </nav>
     </header>
   );

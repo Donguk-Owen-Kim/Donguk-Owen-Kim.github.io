@@ -280,8 +280,6 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
   ];
 
   const project = projects.find(p => p.id === parseInt(projectId));
-  const [playVideo, setPlayVideo] = useState(false);
-  const videoId = project.videoUrl?.match(/embed\/([^?]+)/)?.[1];
 
   if (!project) {
     return (
@@ -440,7 +438,7 @@ export default function ProjectDetail({ projectId }: ProjectDetailProps) {
               {project.images.map((image, index) => (
                 <div key={index} className="group">
                   <img
-                    src={image}
+                    src={typeof image === 'string' ? image : image.url}
                     alt={`${project.title} 상세 ${index + 1}`}
                     className="w-full h-80 object-cover object-top rounded-xl shadow-lg group-hover:shadow-2xl transition-shadow duration-300"
                   />

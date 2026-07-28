@@ -3,9 +3,9 @@ import { type Metadata } from 'next';
 
 // ✅ 타입 인터페이스 명시
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -18,6 +18,7 @@ export async function generateStaticParams() {
 }
 
 // ✅ props 타입 명시적으로 지정
-export default function ProjectPage({ params }: Props) {
-  return <ProjectDetail projectId={params.id} />;
+export default async function ProjectPage({ params }: Props) {
+  const { id } = await params;
+  return <ProjectDetail projectId={id} />;
 }
