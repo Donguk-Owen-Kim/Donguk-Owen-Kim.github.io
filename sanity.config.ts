@@ -10,6 +10,27 @@ export default defineConfig({
   projectId: projectId || 'not-configured',
   dataset,
   basePath: '/studio',
-  plugins: [structureTool(), visionTool()],
+  plugins: [
+    structureTool({
+      structure: (S) =>
+        S.list()
+          .title('Content')
+          .items([
+            S.listItem()
+              .title('Site settings')
+              .child(
+                S.document()
+                  .schemaType('siteSettings')
+                  .documentId('siteSettings')
+                  .title('Landing page & CV'),
+              ),
+            S.divider(),
+            ...S.documentTypeListItems().filter(
+              (item) => item.getId() !== 'siteSettings',
+            ),
+          ]),
+    }),
+    visionTool(),
+  ],
   schema: {types: schemaTypes},
 });

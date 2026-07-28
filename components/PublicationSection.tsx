@@ -21,6 +21,20 @@ type Publication = {
   posterLink?: string;
 };
 
+const normalizePublicationKey = (publication: Publication) =>
+  publication.doiLink?.trim().toLowerCase()
+  || publication.title.trim().toLowerCase().replace(/[^a-z0-9]+/g, '');
+
+const withoutDuplicatePublications = (items: Publication[]) => {
+  const seen = new Set<string>();
+  return items.filter((item) => {
+    const key = normalizePublicationKey(item);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+};
+
 export default function PublicationSection() {
   const [currentPublication, setCurrentPublication] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -93,7 +107,10 @@ export default function PublicationSection() {
           ...fallbackPublications.find((publication) => publication.id === item.id),
           ...item,
         } as Publication));
-        setPublications([...merged, ...fallbackPublications.filter((item) => !managedIds.has(item.id))]);
+        setPublications(withoutDuplicatePublications([
+          ...merged,
+          ...fallbackPublications.filter((item) => !managedIds.has(item.id)),
+        ]));
       }
     });
     // The local list intentionally remains a stable fallback for gradual CMS migration.
@@ -146,9 +163,9 @@ export default function PublicationSection() {
           >
             {publications.map((publication, index) => (
               <div key={publication.id} className="flex-shrink-0 w-full snap-start">
-                <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden border border-gray-100">
-                  <div className="grid lg:grid-cols-2 gap-0">
-                    <div className="relative w-full overflow-hidden aspect-[4/3] md:aspect-[16/10] lg:aspect-auto lg:min-h-[380px] xl:min-h-[440px] 2xl:min-h-[500px] flex items-center justify-center bg-white">
+                <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg transition-all duration-500 hover:shadow-xl lg:h-[560px]">
+                  <div className="grid h-full gap-0 lg:grid-cols-2">
+                    <div className="relative flex w-full items-center justify-center overflow-hidden bg-white aspect-[4/3] md:aspect-[16/10] lg:h-full lg:aspect-auto">
                       <img
                         src={publication.image ?? ''}
                         alt={publication.title}
@@ -163,7 +180,7 @@ export default function PublicationSection() {
                         </span>
                       </div>
                     </div>
-                    <div className="p-8 lg:p-12 flex flex-col justify-center">
+                    <div className="flex flex-col justify-center overflow-y-auto p-8 lg:h-full lg:p-12">
                       <div className="mb-4">
                         <span className="text-blue-600 font-medium text-sm uppercase tracking-wide">
                           {publication.journal}

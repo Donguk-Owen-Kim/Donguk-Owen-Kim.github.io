@@ -20,3 +20,8 @@ export const blogPostsQuery = `*[_type == "blogPost"] | order(publishedAt desc) 
 export const blogPostQuery = `*[_type == "blogPost" && slug.current == $slug][0] {
   "slug": slug.current, title, excerpt, publishedAt, category, body
 }`;
+
+export const siteSettingsQuery = `*[_type == "siteSettings" && _id == "siteSettings"][0] {
+  landingDescription,
+  "cvUrl": cvFile.asset->url
+}`;
