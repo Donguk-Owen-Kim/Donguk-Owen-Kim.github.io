@@ -118,6 +118,38 @@ button {
   transform: translate3d(0, 0, 0) rotate(-1deg) scale(1);
 }
 
+.project-preview-frame {
+  opacity: 0;
+  animation: project-slideshow var(--slideshow-duration, 8s) infinite;
+  animation-delay: var(--slideshow-delay, 0s);
+  animation-play-state: paused;
+  will-change: opacity, transform;
+}
+
+.project-row:hover .project-preview-frame,
+.project-row:focus-within .project-preview-frame {
+  animation-play-state: running;
+}
+
+@keyframes project-slideshow {
+  0%,
+  20% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+
+  27%,
+  93% {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
 .project-row:hover .project-arrow,
 .project-row:focus-within .project-arrow {
   transform: translate(4px, -4px);

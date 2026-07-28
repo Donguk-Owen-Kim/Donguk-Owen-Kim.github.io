@@ -10,6 +10,12 @@ export default function ProjectsSection() {
       category: 'VIDEO EDITING',
       description: 'Three video styles for promoting the graduation exhibition: PR, documentary, and vlog',
       image: '/images/id_1_preview.png',
+      slideshow: [
+        '/images/AbouT/1.jpg',
+        '/images/AbouT/3.jpg',
+        '/images/AbouT/5.jpg',
+        '/images/AbouT/7.jpg',
+      ],
       tags: ['Shooting', 'Editing', 'Promotion Video', 'Documentary Video'],
       year: '2024',
     },
@@ -19,6 +25,12 @@ export default function ProjectsSection() {
       category: 'GLOBAL EVENT BRANDING & PRODUCTION',
       description: 'Organized and designed one of the most prestigious global competitions in the world of cubing',
       image: '/images/id_4_preview.png',
+      slideshow: [
+        '/images/WC/1.jpg',
+        '/images/WC/3.JPG',
+        '/images/WC/7.JPG',
+        '/images/WC/10.JPG',
+      ],
       tags: ['Exhibition Design', 'Event Planning', 'Product Design'],
       year: '2023',
     },
@@ -28,6 +40,11 @@ export default function ProjectsSection() {
       category: 'Event Design & Protocol Coordination',
       description: 'Supported event logistics and visual design for the Air Force Band Annual Concert in partnership with the Eighth U.S. Army Band',
       image: '/images/id_5_preview.png',
+      slideshow: [
+        '/images/AF_Band/1.jpg',
+        '/images/AF_Band/2.jpg',
+        '/images/AF_Band/3.jpg',
+      ],
       tags: ['Exhibition Design', 'Event Planning', 'Product Design'],
       year: '2022',
     },
@@ -37,6 +54,12 @@ export default function ProjectsSection() {
       category: 'EVENT DESIGN',
       description: 'Planned and designed an Air Force experience program that allowed civilians to take part in a fighter jet pilot training simulation',
       image: '/images/id_6_preview.png',
+      slideshow: [
+        '/images/ADEX/4.jpg',
+        '/images/ADEX/3.jpg',
+        '/images/ADEX/6.jpg',
+        '/images/ADEX/1.jpg',
+      ],
       tags: ['Exhibition Design', 'Event Planning', 'Product Design'],
       year: '2021',
     },
@@ -56,37 +79,31 @@ export default function ProjectsSection() {
         </div>
 
         <div className="border-t border-black/20">
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <article key={project.id} className="project-row relative border-b border-black/20">
               <Link
                 href={`/projects/${project.id}`}
-                className="group relative z-10 grid min-h-[220px] gap-8 py-8 md:grid-cols-[4rem_1fr_18rem_3rem] md:items-center md:py-10"
+                className="group relative z-10 grid min-h-[150px] grid-cols-[1fr_3rem] items-center gap-8 py-8 md:min-h-[190px] md:py-10"
               >
-                <span className="text-xs tabular-nums text-black/40">0{index + 1}</span>
-                <div>
-                  <div className="mb-4 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.13em] text-black/45">
-                    <span>{project.category}</span>
-                    <span>•</span>
-                    <span>{project.year}</span>
-                  </div>
-                  <h3 className="max-w-3xl text-[clamp(2rem,4.5vw,5rem)] font-medium leading-[0.95] tracking-[-0.055em] transition group-hover:text-[#ff5c35]">
-                    {project.title}
-                  </h3>
-                </div>
-                <div className="relative">
-                  <div className="aspect-[4/3] overflow-hidden rounded-2xl md:hidden">
-                    <img src={project.image} alt={project.title} className="h-full w-full object-cover" />
-                  </div>
-                  <p className="mt-5 text-sm leading-6 text-black/55 md:mt-0">{project.description}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {project.tags.map((tag) => <span key={tag} className="tag">{tag}</span>)}
-                  </div>
-                </div>
+                <h3 className="max-w-5xl text-[clamp(2.25rem,5.7vw,6.25rem)] font-medium leading-[0.9] tracking-[-0.065em] transition group-hover:text-[#ff5c35]">
+                  {project.title}
+                </h3>
                 <i className="project-arrow ri-arrow-right-up-line text-2xl transition-transform"></i>
               </Link>
 
-              <div className="project-preview pointer-events-none absolute right-[22rem] top-1/2 z-20 hidden h-52 w-72 -translate-y-1/2 overflow-hidden shadow-2xl md:block xl:right-[24rem] xl:h-64 xl:w-96">
-                <img src={project.image} alt="" className="h-full w-full object-cover" />
+              <div className="project-preview pointer-events-none absolute right-[7rem] top-1/2 z-20 hidden h-56 w-80 -translate-y-1/2 overflow-hidden bg-black shadow-2xl md:block xl:h-72 xl:w-[28rem]">
+                {project.slideshow.map((image, index) => (
+                  <img
+                    key={image}
+                    src={image}
+                    alt=""
+                    className="project-preview-frame absolute inset-0 h-full w-full object-cover"
+                    style={{
+                      '--slideshow-duration': `${project.slideshow.length * 2.2}s`,
+                      '--slideshow-delay': `${index * -2.2}s`,
+                    } as React.CSSProperties}
+                  />
+                ))}
               </div>
             </article>
           ))}
