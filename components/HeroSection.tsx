@@ -1,18 +1,29 @@
 'use client';
 
+import {useEffect, useState} from 'react';
+import {fetchPublished} from '../sanity/lib/client';
+import {siteSettingsQuery} from '../sanity/lib/queries';
+
+type SiteSettings = {
+  landingDescription?: string;
+  cvUrl?: string;
+};
+
 export default function HeroSection() {
+  const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
+
+  useEffect(() => {
+    fetchPublished<SiteSettings>(siteSettingsQuery).then((settings) => {
+      if (settings) setSiteSettings(settings);
+    });
+  }, []);
+
   const scrollToPublications = () => {
     const element = document.getElementById('publications');
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const downloadCV = () => {
-    // CV 다운로드 기능 시뮬레이션
-    const link = document.createElement('a');
-    link.href = 'https://drive.google.com/file/d/1EkM9DKMqxoGxNm3MAfbrLptQr7cLa0Wy/view?usp=sharing'; // 실제 CV 파일 경로로 변경 필요
-    // link.download = 'CV_202507.pdf';
-    link.click();
-  };
+  const cvUrl = siteSettings?.cvUrl || '/docs/CV_202608.pdf';
 
   return (
     <section id="home" className="relative min-h-screen overflow-hidden pt-32">
@@ -35,19 +46,25 @@ export default function HeroSection() {
 
         <div className="grid gap-8 border-t border-black/15 pt-8 md:grid-cols-[1fr_auto] md:items-end">
           <div className="max-w-4xl">
-            <p className="text-base leading-7 text-black/65 md:text-lg">
-              I'm UROP in <a href="https://artifab.yoonji-kim.com/main-page" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline" }}><strong>Artifab Lab</strong></a> at Chung-Ang University, advised by <a href="https://www.yoonji-kim.com/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline" }}><strong>Prof. Yoonji Kim</strong></a>.<br />
-              My research interests are <strong>Human-Computer Interaction (HCI)</strong> with a focus on <strong>Accessibility</strong> and <strong>Healthcare</strong>, aiming to help users adapt intuitively in digitally augmented environments. My work integrates <strong>Digital Fabrication</strong>, <strong>Immersive Content Design</strong>, and <strong>User-Centered Innovation</strong>.<br/>
-              I earned my B.E. from <a href="https://artech.cau.ac.kr/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="font-bold underline"
-              style={{ textDecoration: "underline" }}><strong>Chung-Ang University (Art&Technology)</strong></a>
-            </p>
+            {siteSettings?.landingDescription ? (
+              <p className="whitespace-pre-line text-base leading-7 text-black/65 md:text-lg">
+                {siteSettings.landingDescription}
+              </p>
+            ) : (
+              <p className="text-base leading-7 text-black/65 md:text-lg">
+                I'm UROP in <a href="https://artifab.yoonji-kim.com/main-page" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline" }}><strong>Artifab Lab</strong></a> at Chung-Ang University, advised by <a href="https://www.yoonji-kim.com/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline" }}><strong>Prof. Yoonji Kim</strong></a>.<br />
+                My research interests are <strong>Human-Computer Interaction (HCI)</strong> with a focus on <strong>Accessibility</strong> and <strong>Healthcare</strong>, aiming to help users adapt intuitively in digitally augmented environments. My work integrates <strong>Digital Fabrication</strong>, <strong>Immersive Content Design</strong>, and <strong>User-Centered Innovation</strong>.<br/>
+                I earned my B.E. from <a href="https://artech.cau.ac.kr/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold underline"
+                style={{ textDecoration: "underline" }}><strong>Chung-Ang University (Art&Technology)</strong></a>
+              </p>
+            )}
           </div>
-          <button onClick={downloadCV} className="button-pill whitespace-nowrap">
+          <a href={cvUrl} target="_blank" rel="noopener noreferrer" className="button-pill whitespace-nowrap">
             Curriculum Vitae <i className="ri-arrow-right-up-line text-lg"></i>
-          </button>
+          </a>
         </div>
       </div>
       <button onClick={scrollToPublications} className="absolute bottom-7 right-6 hidden h-12 w-12 items-center justify-center rounded-full border border-black/15 md:flex" aria-label="Scroll to publications">
