@@ -1,12 +1,31 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import type {ReactNode} from 'react';
+import {fetchPublished} from '../sanity/lib/client';
+import {publicationsQuery} from '../sanity/lib/queries';
+
+type Publication = {
+  id: number;
+  title: string;
+  journal?: string;
+  description?: ReactNode;
+  authors?: string;
+  image?: string;
+  tags?: string[];
+  year?: string;
+  type?: string;
+  doiLink?: string;
+  pdfLink?: string;
+  presentationLink?: string;
+  posterLink?: string;
+};
 
 export default function PublicationSection() {
   const [currentPublication, setCurrentPublication] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const publications = [
+  const fallbackPublications: Publication[] = [
     {
       id: 1,
       title: "Design Guidelines for Pediatric Care Assistive Content to Alleviate Psychological Anxiety in Young Patients",
@@ -64,6 +83,22 @@ export default function PublicationSection() {
     //   type: "Industry Report"
     // }
   ];
+  const [publications, setPublications] = useState(fallbackPublications);
+
+  useEffect(() => {
+    fetchPublished<Publication[]>(publicationsQuery).then((items) => {
+      if (items?.length) {
+        const managedIds = new Set(items.map((item) => item.id));
+        const merged = items.map((item) => ({
+          ...fallbackPublications.find((publication) => publication.id === item.id),
+          ...item,
+        } as Publication));
+        setPublications([...merged, ...fallbackPublications.filter((item) => !managedIds.has(item.id))]);
+      }
+    });
+    // The local list intentionally remains a stable fallback for gradual CMS migration.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -115,7 +150,7 @@ export default function PublicationSection() {
                   <div className="grid lg:grid-cols-2 gap-0">
                     <div className="relative w-full overflow-hidden aspect-[4/3] md:aspect-[16/10] lg:aspect-auto lg:min-h-[380px] xl:min-h-[440px] 2xl:min-h-[500px] flex items-center justify-center bg-white">
                       <img
-                        src={publication.image}
+                        src={publication.image ?? ''}
                         alt={publication.title}
                         className="w-full h-full object-contain"
                       />
@@ -138,10 +173,10 @@ export default function PublicationSection() {
                         {publication.title}
                       </h3>
                       <p className="text-gray-600 mb-6 leading-relaxed">
-                        {publication.description}
+                        {publication.authors ?? publication.description}
                       </p>
                       <div className="flex flex-wrap gap-2 mb-8">
-                        {publication.tags.map((tag, tagIndex) => (
+                        {(publication.tags ?? []).map((tag, tagIndex) => (
                           <span
                             key={tagIndex}
                             className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm border border-blue-200"

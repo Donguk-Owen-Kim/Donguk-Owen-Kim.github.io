@@ -1,9 +1,23 @@
 'use client';
 
 import Link from 'next/link';
+import {useEffect, useState} from 'react';
+import {fetchPublished} from '../sanity/lib/client';
+import {projectsQuery} from '../sanity/lib/queries';
+
+type ProjectCard = {
+  id: number;
+  title: string;
+  category?: string;
+  description?: string;
+  image?: string;
+  slideshow?: string[];
+  tags?: string[];
+  year?: string;
+};
 
 export default function ProjectsSection() {
-  const projects = [
+  const fallbackProjects: ProjectCard[] = [
     {
       id: 1,
       title: 'Art&Tech Grad Show: The Film Series',
@@ -64,6 +78,28 @@ export default function ProjectsSection() {
       year: '2021',
     },
   ];
+  const [projects, setProjects] = useState(fallbackProjects);
+
+  useEffect(() => {
+    fetchPublished<ProjectCard[]>(projectsQuery).then((items) => {
+      if (items?.length) {
+        const managedIds = new Set(items.map((item) => item.id));
+        const merged = items.map((item) => {
+          const fallback = fallbackProjects.find((project) => project.id === item.id);
+          const project = {...fallback, ...item};
+          return {
+            ...project,
+            slideshow: item.slideshow?.length
+              ? item.slideshow
+              : fallback?.slideshow ?? (project.image ? [project.image] : []),
+          } as ProjectCard;
+        });
+        setProjects([...merged, ...fallbackProjects.filter((item) => !managedIds.has(item.id))]);
+      }
+    });
+    // The local list intentionally remains a stable fallback for gradual CMS migration.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <section id="projects" className="border-t border-black/15 py-24 md:py-36">
@@ -92,14 +128,14 @@ export default function ProjectsSection() {
               </Link>
 
               <div className="project-preview pointer-events-none absolute right-[7rem] top-1/2 z-20 hidden h-56 w-80 -translate-y-1/2 overflow-hidden bg-black shadow-2xl md:block xl:h-72 xl:w-[28rem]">
-                {project.slideshow.map((image, index) => (
+                {(project.slideshow ?? []).map((image, index) => (
                   <img
                     key={image}
                     src={image}
                     alt=""
                     className="project-preview-frame absolute inset-0 h-full w-full object-cover"
                     style={{
-                      '--slideshow-duration': `${project.slideshow.length * 2.2}s`,
+                      '--slideshow-duration': `${(project.slideshow?.length ?? 1) * 2.2}s`,
                       '--slideshow-delay': `${index * -2.2}s`,
                     } as React.CSSProperties}
                   />
