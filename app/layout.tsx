@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Pacifico } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import AdminShortcut from "../components/AdminShortcut";
+import GoogleAnalyticsConsent from "../components/GoogleAnalyticsConsent";
 import "./globals.css";
 
 const pacifico = Pacifico({
@@ -45,6 +46,7 @@ export default function RootLayout({
       >
         <AdminShortcut />
         {children}
+        <GoogleAnalyticsConsent />
         <Analytics />
         <SpeedInsights />
       </body>

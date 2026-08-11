@@ -259,6 +259,101 @@ button {
   color: var(--ink);
 }
 
+.analytics-consent {
+  position: fixed;
+  z-index: 1000;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  left: clamp(1rem, 3vw, 2rem);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 62rem;
+  margin-inline: auto;
+  padding: 1.25rem;
+  border: 1px solid rgba(244, 243, 239, 0.2);
+  border-radius: 1.25rem;
+  color: var(--paper);
+  background: rgba(21, 21, 21, 0.96);
+  box-shadow: 0 24px 70px rgba(21, 21, 21, 0.22);
+  backdrop-filter: blur(18px);
+}
+
+.analytics-consent-title {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.analytics-consent-copy {
+  max-width: 40rem;
+  margin: 0;
+  color: rgba(244, 243, 239, 0.66);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.analytics-consent-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.5rem;
+}
+
+.analytics-consent-actions button,
+.analytics-settings-button {
+  border: 1px solid rgba(244, 243, 239, 0.28);
+  border-radius: 999px;
+  padding: 0.72rem 1rem;
+  color: var(--paper);
+  background: transparent;
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.analytics-consent-actions button:hover,
+.analytics-consent-actions button:focus-visible {
+  border-color: var(--paper);
+}
+
+.analytics-consent-actions .analytics-consent-accept {
+  border-color: var(--accent);
+  color: var(--ink);
+  background: var(--accent);
+}
+
+.analytics-settings-button {
+  position: fixed;
+  z-index: 100;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 0.55rem 0.8rem;
+  border-color: var(--line);
+  color: var(--muted);
+  background: rgba(244, 243, 239, 0.88);
+  backdrop-filter: blur(12px);
+}
+
+.analytics-settings-button:hover,
+.analytics-settings-button:focus-visible {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+@media (max-width: 720px) {
+  .analytics-consent {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .analytics-consent-actions {
+    justify-content: flex-end;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
